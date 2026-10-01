@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Ane Arregi Beitia" />
+
+<meta name="date" content="2026-09-30" />
+
+<title>Trabajo de Software Matemático y Estadístico (R)</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Trabajo de Software Matemático y
+Estadístico (R)</h1>
+<h4 class="author">Ane Arregi Beitia</h4>
+<h4 class="date">2026-09-30</h4>
+
+
+
+<p>El paquete <code>PaqueteAne</code> contiene diferentes funciones
+desarrolladas para la asignatura de Software Matemático y
+Estadístico.</p>
+<p>El paquete incluye funciones para:</p>
+<ul>
+<li>discretización de variables</li>
+<li>cálculo de métricas</li>
+<li>normalización y estandarización</li>
+<li>filtrado de variables</li>
+<li>cálculo de correlaciones e información mutua</li>
+<li>representación gráfica de curvas ROC y matrices de correlación.</li>
+</ul>
+<p>El primer paso es leer las funciones utilizadas a lo largo de los
+ejercicios de la asignatura. Por cuestión de orden, todas ellas se han
+agrupado en un único fichero llamado <em>Funciones.R</em>. Para poder
+ejecutar y replicar correctamente el contenido de este documento, es
+necesario que tanto el fichero <em>Funciones.R</em> como este documento
+se encuentren en el mismo directorio.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(PaqueteAne)</span></code></pre></div>
+<div id="algoritmos-de-discretización" class="section level2">
+<h2>Algoritmos de discretización</h2>
+<p>En este documento se explicarán diferentes algoritmos de
+discretización. La discretización consiste en transformar una variable
+numérica continua en una variable categórica, agrupando sus valores en
+un número determinado de intervalos. Este proceso permite simplificar la
+representación de los datos y puede facilitar su análisis e
+interpretación, especialmente cuando se trabaja con métodos que
+requieren variables categóricas.</p>
+<p>Existen diferentes estrategias para determinar cómo se realizan estas
+agrupaciones. Entre los métodos clásicos se encuentran <em>Equal
+Width</em> (EW) y <em>Equal Frequency</em> (EF). El primero divide el
+rango de valores en intervalos de igual amplitud, mientras que el
+segundo busca que los intervalos contengan aproximadamente el mismo
+número de observaciones. También existen métodos basados en otros
+criterios, como la entropía, que permiten determinar los puntos de corte
+teniendo en cuenta la distribución de los datos y, en determinados
+casos, la información de la variable objetivo.</p>
+<p>A continuación, se analizarán dichas funciones, explicando su
+funcionamiento y mostrando sus principales diferencias mediante
+ejemplos.</p>
+<p><strong>Discretize</strong></p>
+<p>La función <em>Discretize</em> permite realizar una discretización a
+partir de unos puntos de corte definidos previamente. En este caso, el
+usuario define puntos de corte que se utilizan para discretizar la lista
+de puntos. La función recibe un vector numérico y una lista de puntos de
+corte, y devuelve un vector categórico en el que cada valor queda
+asignado al intervalo correspondiente:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">2</span>,<span class="dv">9</span>,<span class="dv">78</span>,<span class="dv">2</span>,<span class="dv">19</span>,<span class="dv">80</span>,<span class="dv">91</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>puntos.corte <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">80</span>,<span class="dv">60</span>,<span class="dv">90</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">discretize</span>(x,puntos.corte)</span></code></pre></div>
+<pre><code>## [1] I1 I2 I1 I2 I3 I1 I2 I3 I5
+## Levels: I1 I2 I3 I4 I5</code></pre>
+<p>Tal y como se observa, la función crea <span class="math inline">\((n+1)\)</span> grupos o niveles, siendo <span class="math inline">\((n)\)</span> la longitud del vector puntos.corte.
+En este caso concreto, se generan cinco grupos. El primer grupo, (I1),
+comprende el intervalo <span class="math inline">\((-∞, 2])\)</span>,
+incluyendo también el valor 2. El segundo grupo comprende los valores
+mayores que 2 y menores o iguales que 60, el tercero los valores mayores
+que 60 y menores o iguales que 80, y el cuarto los valores mayores que
+80 y menores o iguales que 90. Finalmente, se crea un último grupo que
+comprende los valores superiores a 90. As, cada valor de
+<strong>x</strong> queda asignado a una categoría en función del
+intervalo en el que se encuentra.</p>
+<p>También se puede emplear esta función en datasets completos. Para
+ello, hay que llamar a la función <em>discretize.dataset</em> y las
+variables siguen siendo los datos y los puntos de corte.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="at">v1 =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">2</span>,<span class="dv">9</span>,<span class="dv">78</span>,<span class="dv">2</span>,<span class="dv">19</span>,<span class="dv">80</span>,<span class="dv">91</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="at">v2 =</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">2</span>,<span class="dv">291</span>,<span class="dv">23</span>,<span class="dv">86</span>,<span class="dv">52</span>,<span class="dv">39</span>,<span class="dv">18</span>,<span class="dv">29</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="at">v3 =</span> <span class="fu">c</span>(<span class="fl">1.60</span>,<span class="fl">1.70</span>,<span class="fl">1.75</span>,<span class="fl">1.80</span>,<span class="fl">1.90</span>,<span class="dv">2</span>,<span class="fl">1.78</span>,<span class="fl">9.23</span>,<span class="dv">100</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>)</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>puntos.corte <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">80</span>,<span class="dv">60</span>,<span class="dv">90</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="fu">discretize.dataset</span>(datos,puntos.corte)</span></code></pre></div>
+<pre><code>##   v1 v2 v3
+## 1 I1 I2 I1
+## 2 I2 I1 I1
+## 3 I1 I5 I1
+## 4 I2 I2 I1
+## 5 I3 I4 I1
+## 6 I1 I2 I1
+## 7 I2 I2 I1
+## 8 I3 I2 I2
+## 9 I5 I2 I5</code></pre>
+<p><strong>Discretize Equal Width</strong></p>
+<p>Tal y como se ha mencionado, uno de los algorítmos clásicos es
+<em>Equal Width</em>. Dado un vector de números reales y un número de
+intervalos, este algoritmo determina los puntos de corte necesarios para
+generar un vector categórico de tal manera que esos puntos estén
+uniformemente distribuidos en el rango de los valores.</p>
+<p>Como se ve en el ejemplo, si se tienen los valores (11.5, 10.2, 1.2,
+0.5, 5.3, 20.5, 8.4) y se quiere generar una variable categórica con 4
+posibles valores, es necesario determinar cuatro puntos de corte, que
+serán valores que separen el intervalo (entre 0.5 y 20.5 en este caso)
+en 4 tramos de igual tamaño. En este caso, cada intervalo tendrá una
+amplitud de 5. Por tanto, los intervalos serán: de 0.5 a 5.5, de 5.5 a
+10.5, de 10.5 a 15.5 y de 15.5 a 20.5. De esta forma, se obtienen 3
+puntos de corte: 5.5, 10.5 y 15.5.</p>
+<p>Cuando se aplica este procedimiento a nuevos valores, estos pueden
+encontrarse fuera del rango de los datos utilizados originalmente para
+determinar los puntos de corte. Para poder asignar estos valores a algún
+intervalo, se considera que el primer intervalo se extiende hasta (-∞) y
+que el último se extiende hasta (+∞). Por tanto, una vez aplicado el
+algoritmo, el resultado puede representarse mediante un vector
+categórico como el siguiente: (I3, I2, I1, I1, I4, I2), donde: I1=(-∞,
+5.5], I2=(5.5, 10.5], I3=(10.5, 15.5], I4=(15.5, ∞).</p>
+<p>Por lo tanto, se a creado una función <em>discretizeEW()</em> que
+recibe como entrada un vector de tipo numérico y un número de
+intervalos:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">11.5</span>,<span class="fl">10.2</span>,<span class="fl">1.2</span>,<span class="fl">0.5</span>,<span class="fl">5.5</span>,<span class="fl">20.5</span>,<span class="fl">8.4</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>num.int <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">discretizeEW</span>(x2,num.int)</span></code></pre></div>
+<pre><code>## $valores
+## [1] I3 I2 I1 I1 I2 I4 I2
+## Levels: I1 I2 I3 I4
+## 
+## $intervalos
+## [1] &quot;I1 = (-Inf, 5.5]&quot; &quot;I2=(5.5,10.5]&quot;    &quot;I3=(10.5,15.5]&quot;   &quot;I4 = (15.5, Inf)&quot;
+## 
+## $puntos.corte
+## [1] &quot;Puntos de corte: 5.5, 10.5, 15.5&quot;</code></pre>
+<p>Como resultado, la función devuelve un vector de valores categóricos
+que indica a qué intervalo pertenece cada valor, así como los puntos de
+corte obtenidos. Estos puntos de corte pueden utilizarse posteriormente
+para discretizar nuevos valores utilizando los mismos intervalos.
+Además, para mejorar la legibilidad del resultado, se indican los
+límites correspondientes a cada intervalo.</p>
+<p>Si se quiere aplicar esta función a un dataset, podemos usar la
+función **discretizeEW.dataset()*. Esta función funciona exactamente
+igual que el anterior, recorriendo las columnas una a una.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="at">v1 =</span> <span class="fu">c</span>(<span class="fl">11.5</span>,<span class="fl">10.2</span>,<span class="fl">1.2</span>,<span class="fl">0.5</span>,<span class="fl">5.5</span>,<span class="fl">20.5</span>,<span class="fl">8.4</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="at">v2 =</span> <span class="fu">c</span>(<span class="dv">1000</span>,<span class="dv">1500</span>,<span class="dv">2000</span>,<span class="dv">2500</span>,<span class="dv">3000</span>,<span class="dv">2800</span>,<span class="dv">4000</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="at">v3 =</span> <span class="fu">c</span>(<span class="fl">1.60</span>,<span class="fl">1.70</span>,<span class="fl">1.75</span>,<span class="fl">1.80</span>,<span class="fl">1.90</span>,<span class="dv">2</span>,<span class="fl">1.78</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>num.int <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="fu">discretizeEW.dataset</span>(datos,num.int)</span></code></pre></div>
+<pre><code>##   v1 v2 v3
+## 1 I3 I1 I1
+## 2 I2 I1 I1
+## 3 I1 I2 I2
+## 4 I1 I3 I3
+## 5 I2 I3 I4
+## 6 I4 I3 I4
+## 7 I2 I4 I2</code></pre>
+<p><strong>Discretize Equal Frequency</strong></p>
+<p>Otro de los algoritmos clásicos es <em>Equal Frequency</em>. En este
+caso, el objetivo es buscar los puntos de corte que hagan que el número
+de valores del vector a discretizar que caen en cada uno de los
+intervalos sea el mismo. En caso de que el número de valores no sea
+divisible entre el número de intervalos, algunos grupos pueden contener
+un elemento más o menos que otros.</p>
+<p>Por ejemplo, si tenemos un vector de 9 elementos y queremos dividirlo
+en 3 grupos, el algoritmo <em>Equal Frequency</em> formará 3 grupos de 3
+elementos. Para ello, primero se ordenan los valores del vector y,
+posteriormente, se asigna cada valor al grupo que le corresponde según
+su posición en el vector ordenado.</p>
+<p>Para llevar a cabo este algoritmo, se ha creado una función
+<em>discretizeEF()</em>, que dado un vector de números y el número de
+grupos, devuelve los elementos discretizados y los elementos que forman
+cada grupo.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">19</span>,<span class="dv">28</span>,<span class="dv">12</span>,<span class="dv">10</span>,<span class="dv">4</span>,<span class="dv">7</span>,<span class="dv">10</span>,<span class="dv">22</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>num.grupos <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="fu">discretizeEF</span>(x,num.grupos)</span></code></pre></div>
+<pre><code>## $valores
+## [1] I1 I3 I3 I2 I2 I1 I1 I2 I3
+## Levels: I1 I2 I3
+## 
+## $grupos
+## [1] &quot;I1=(2, 4, 7)&quot;    &quot;I2=(10, 10, 12)&quot; &quot;I3=(19, 22, 28)&quot;</code></pre>
+<p>Sin embargo, cuando el número de elementos del vector no es divisible
+entre el número de grupos, no es posible que todos los grupos tengan
+exactamente el mismo número de elementos. En este caso, la función se
+encarga de distribuir los elementos restantes entre los grupos de forma
+que sus tamaños sean lo más similares posible. Esto se puede observar en
+el siguiente ejemplo:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">29</span>,<span class="dv">10</span>,<span class="dv">87</span>,<span class="dv">21</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>num.grupos<span class="ot">&lt;-</span><span class="dv">5</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="fu">discretizeEF</span>(x,num.grupos)</span></code></pre></div>
+<pre><code>## $valores
+## [1] I4 I2 I1 I5 I3 I5 I4
+## Levels: I1 I2 I3 I4 I5
+## 
+## $grupos
+## [1] &quot;I1=(1)&quot;      &quot;I2=(3)&quot;      &quot;I3=(10)&quot;     &quot;I4=(20, 21)&quot; &quot;I5=(29, 87)&quot;</code></pre>
+<p>Igual que se ha hecho en <em>Discretize Equal Width</em>, se ha
+creado una función adicional para los datasets:
+<em>discretizeEF.dataset()</em>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  <span class="at">v1 =</span> <span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">29</span>,<span class="dv">10</span>,<span class="dv">87</span>,<span class="dv">21</span>),</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  <span class="at">v2 =</span> <span class="fu">c</span>(<span class="dv">1000</span>,<span class="dv">1500</span>,<span class="dv">2000</span>,<span class="dv">2500</span>,<span class="dv">3000</span>,<span class="dv">2800</span>,<span class="dv">4000</span>),</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>  <span class="at">v3 =</span> <span class="fu">c</span>(<span class="fl">1.60</span>,<span class="fl">1.70</span>,<span class="fl">1.75</span>,<span class="fl">1.80</span>,<span class="fl">1.90</span>,<span class="dv">2</span>,<span class="fl">1.78</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>)</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>num.grupos <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="fu">discretizeEF.dataset</span>(datos,num.grupos)</span></code></pre></div>
+<pre><code>##   v1 v2 v3
+## 1 I4 I1 I1
+## 2 I2 I2 I2
+## 3 I1 I3 I3
+## 4 I5 I4 I4
+## 5 I3 I5 I5
+## 6 I5 I4 I5
+## 7 I4 I5 I4</code></pre>
+</div>
+<div id="cálculo-de-métricas-para-los-atributos-de-un-dataset." class="section level2">
+<h2>Cálculo de métricas para los atributos de un dataset.</h2>
+<p>Las métricas permiten obtener información sobre las características y
+el comportamiento de los atributos de un conjunto de datos. Dependiendo
+del tipo de atributo, pueden utilizarse diferentes medidas para analizar
+su variabilidad, su capacidad de discriminación o la distribución de sus
+valores.</p>
+<p>En este trabajo se implementa una función capaz de identificar el
+tipo de atributo y seleccionar automáticamente la métrica
+correspondiente. Para los atributos continuos o numéricos se calcula la
+varianza y el AUC (Area Under the Curve). Por otro lado, para los
+atributos discretos o categóricos se calcula la entropía, una medida que
+permite cuantificar el grado de incertidumbre o diversidad existente en
+la distribución de las categorías del atributo.</p>
+<p>Como ejemplo, vemos que proporcionando a la función
+<em>calcular_metricas()</em> el dataframe y el nombre de la columna
+donde están las etiquetas reales (para calcular el AUC), nos devuelve la
+varianza y la media de aquellas columnas numéricas, y la entropía de las
+columnas discretizadas tipo factor.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>  <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="dv">45</span>),</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  <span class="at">sueldo =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">5000</span>, <span class="dv">1000</span>, <span class="dv">2000</span>, <span class="dv">3000</span>, <span class="dv">3500</span>),</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  <span class="at">sexo =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;H&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;H&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;H&quot;</span>)),</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>  <span class="at">clase =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>)</span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="fu">calcular_metricas</span>(datos, <span class="st">&quot;clase&quot;</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>resultado</span></code></pre></div>
+<pre><code>##   variable     tipo  varianza    AUC entropia
+## 1     edad continua      87.5 0.3750       NA
+## 2   sueldo continua 2441666.7 0.3125       NA
+## 3     sexo        -        NA     NA       NA</code></pre>
+<p>Esta función general (<em>calcular_metricas()</em>) llama a su vez a
+funciones auxiliares para calcular las diferentes métricas.</p>
+<p>La varianza permite medir la dispersión de los valores respecto a su
+media, y se calcula como:</p>
+<p><span class="math display">\[
+\mathrm{Var}(X) = \frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2
+\]</span> El AUC por su parte, permite evaluar la capacidad de un
+atributo numérico para distinguir entre las dos clases de una variable
+objetivo binaria. Por este motivo, el cálculo del AUC requiere que el
+dataset sea supervisado y que se especifique previamente una variable
+clase binaria.</p>
+<p>Para calcularlo, se consideran diferentes valores de corte de la
+variable numérica. Para cada corte se obtiene un punto de la curva ROC,
+formado por la tasa de verdaderos positivos (TPR) y la tasa de falsos
+positivos (FPR). Estos puntos permiten construir la curva ROC, que
+representa la capacidad de la variable para distinguir entre las dos
+clases.</p>
+<p>Para obtener cada uno de estos puntos se ha implementado la función
+<em>calcular_punto_ROC()</em>, que compara las predicciones obtenidas
+para un determinado punto de corte con las etiquetas reales y calcula
+los valores de FPR y TPR correspondientes.</p>
+<p>Una vez obtenidos los diferentes puntos de la curva ROC, se ordenan
+según el valor de FPR y se calcula el área bajo la curva. Para realizar
+esta integración se utiliza la función <em>integraOptimizada()</em>, que
+aplica la regla del trapecio entre los distintos puntos.</p>
+<p>Finalmente, la función <em>AUC()</em> se encarga de integrar todo el
+procedimiento: genera los puntos de corte, obtiene para cada uno su
+correspondiente punto ROC mediante <em>calcular_punto_ROC()</em>, ordena
+los puntos y calcula el área bajo la curva utilizando
+<em>integraOptimizada()</em>. El resultado final es el valor del AUC
+para la variable analizada.</p>
+<p>Por otro lado, la entropía es una medida que permite cuantificar la
+distribución de las variables discretizadas: cuanto más uniforme sea la
+distribución de los valores, mayor será la entropía. Para calcularlo se
+ha aplicado la función <em>entropy()</em> que calcula la entropía
+utilizando la siguiente fórmula:</p>
+<p><span class="math display">\[
+H(X)=-\sum_i p_i\log_2(p_i)
+\]</span> donde <span class="math inline">\(p_i\)</span> es la
+probabilidad estimada para cada valor posible.</p>
+</div>
+<div id="normalización-y-estandarización-de-variables." class="section level2">
+<h2>Normalización y estandarización de variables.</h2>
+<p>La normalización y la estandarización son técnicas de transformación
+de datos que permiten modificar la escala de las variables numéricas de
+un conjunto de datos. Estas técnicas son especialmente útiles cuando las
+variables presentan rangos o unidades de medida diferentes, ya que
+permiten trabajar con ellas en una escala comparable.</p>
+<p>La normalización transforma los valores de una variable para
+situarlos, habitualmente, en un intervalo entre 0 y 1. Para ello, se
+utiliza el valor mínimo y máximo de la variable. De esta forma, el valor
+mínimo pasa a ser 0 y el máximo pasa a ser 1, manteniendo las
+proporciones relativas entre los demás valores.</p>
+<p>Se ha creado una función (<em>normalizar</em>) donde pasándole una
+variable numérica, devuelve el vector normalizado:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">normalizar</span>(v)</span></code></pre></div>
+<pre><code>## [1] 0.0 0.2 0.4 0.6 0.8 1.0</code></pre>
+<p>Por otro lado, la estandarización transforma una variable de manera
+que tenga una media igual a 0 y una desviación estándar igual a 1. Para
+ello, a cada valor se le resta la media de la variable y el resultado se
+divide entre su desviación estándar. A diferencia de la normalización,
+los valores estandarizados no están limitados a un intervalo concreto.
+Para estandarizar un vector numérico se ha creado la función
+<em>estandarizar</em>, donde se observa que después de estandarizar, la
+media es 0 y la desviación estandar 1:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>estandarizado <span class="ot">&lt;-</span> <span class="fu">estandarizar</span>(v)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="fu">print</span>(estandarizado)</span></code></pre></div>
+<pre><code>## [1] -1.3363062 -0.8017837 -0.2672612  0.2672612  0.8017837  1.3363062</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="fu">paste</span>(<span class="st">&quot;Media: &quot;</span>,<span class="fu">mean</span>(estandarizado),<span class="fu">paste</span>(<span class="st">&quot;/  Desviación estándar: &quot;</span>,<span class="fu">round</span>(<span class="fu">sd</span>(estandarizado),<span class="dv">2</span>)))))</span></code></pre></div>
+<pre><code>## [1] &quot;Media:  0 /  Desviación estándar:  1&quot;</code></pre>
+<p>En caso de trabajar con datasets, se han creado dos funciones que
+normalizan/estandarizan las variables numéricas de dicho dataset:
+<em>normalizar.dataset</em> y <em>estandarizar.dataset</em>.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>df4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  <span class="at">C1 =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">7</span>,<span class="dv">1</span>,<span class="dv">29</span>,<span class="dv">10</span>),</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>  <span class="at">C2 =</span> <span class="fu">c</span>(<span class="dv">12</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">2</span>),</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>  <span class="at">C3 =</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;c,&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>)</span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a><span class="fu">normalizar.dataset</span>(df4)</span></code></pre></div>
+<pre><code>##           C1         C2 C3
+## 1 0.00000000 1.00000000  a
+## 2 0.03571429 0.09090909  a
+## 3 0.14285714 0.00000000  a
+## 4 0.03571429 0.36363636  b
+## 5 0.21428571 0.00000000  c
+## 6 0.00000000 0.72727273 c,
+## 7 1.00000000 0.81818182  b
+## 8 0.32142857 0.09090909  c</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">estandarizar.dataset</span>(df4)</span></code></pre></div>
+<pre><code>##            C1          C2 C3
+## 1 -0.65140883  1.51204839  a
+## 2 -0.54505637 -0.72802330  a
+## 3 -0.22599898 -0.95203047  a
+## 4 -0.54505637 -0.05600179  b
+## 5 -0.01329406 -0.95203047  c
+## 6 -0.65140883  0.84002688 c,
+## 7  2.32646012  1.06403405  b
+## 8  0.30576333 -0.72802330  c</code></pre>
+<p>##Filtrado de variables</p>
+<p>En base a las métricas utilizadas, se ha desarrollado una función
+donde, dada una dataset, se obtiene uno nuevo donde todas las variables
+cumplan con los requisitos indicados.</p>
+<p>Para ello, a la función hay que proporcionarle el dataset que tenga
+como columnas las siguientes métricas: varianza, AUC y entropia. Este
+dataset puede ser el que se obtiene con la función
+<em>calcular_metricas()</em>, por ejemplo. Además del dataset, la
+función recoge los requisitos de las variables, en el siguiente orden:
+varianza, AUC, entropía. Así, la función queda como:</p>
+<p><em>calcular_metricas(dataset, umbral_varianza,umbral_auc,
+umbral_entropia)</em></p>
+<p>Como ejemplo, se utiliza el dataset obtenido en
+<em>calcular_metricas()</em> y se ponen los siguientes umbrales:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">filtrado_variables</span>(resultado, <span class="dv">70</span>,<span class="fl">0.34</span>,<span class="fl">0.5</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;edad&quot;</code></pre>
+<p>##Cálculo de la correlación</p>
+<p>La correlación permite cuantificar el grado de asociación entre pares
+de variables. Resulta útil para identificar la existencia de relaciones
+o dependencias entre las variables de un conjunto de datos, ya que el
+estudio de estas asociaciones permite detectar patrones entre variables
+y obtener una visión global de la estructura de los datos. Además, puede
+ser de utilidad para identificar variables que aportan información
+similar o, por el contrario, variables cuya información es
+independiente.</p>
+<p>Para calcular la correlación entre los elementos de un dataset, se ha
+desarrollado una función llamada <em>cor_dataset()</em>. Esta función
+recoje un dataset y actúa adaptandose a la naturaleza de las variables:
+para las variables tipo númerica-numérica, calcula la correlacion de
+Pearson, definida como:</p>
+<p><span class="math display">\[r =
+\frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i-\bar{x})^2
+\sum_{i=1}^{n}(y_i-\bar{y})^2}}\]</span> Donde <span class="math inline">\(\bar{x}\)</span> y <span class="math inline">\(\bar{y}\)</span> son las medias de las variables
+cuya correlación se quiere obtener.</p>
+<p>Por otro lado, para las categóricas, calcula la información
+mutua:</p>
+<p><span class="math display">\[
+I(X,Y)=\sum_{x\in X}\sum_{y\in
+Y}P(x,y)\log\left(\frac{P(x,y)}{P(x)P(y)}\right)
+\]</span></p>
+<p>donde <span class="math inline">\(P(x,y)\)</span> representa la
+probabilidad conjunta de observar los valores <span class="math inline">\((x)\)</span> e <span class="math inline">\((y)\)</span>, mientras que <span class="math inline">\(P(x)\)</span> y <span class="math inline">\((P(y)\)</span> representan sus respectivas
+probabilidades marginales. Un valor de información mutua igual a cero
+indica independencia entre las variables, mientras que valores mayores
+indican una mayor dependencia entre ellas.</p>
+<p>Para los pares formados por una variable numérica y una variable
+categórica, la función devuelve el valor NA, ya que este tipo de
+combinación no se contempla en el cálculo definido.</p>
+<p>Teniendo los siguientes datos y aplicando la función se obtiene como
+resultado una matriz simétrica. En el caso de las variables categóricas,
+la diagonal no tiene por qué tomar el valor 1, a diferencia de lo que
+ocurre con la correlación de una variable numérica consigo misma. Esto
+se debe a que la función utiliza la información mutua, por lo que <span class="math inline">\(I(X,X)\)</span> equivale a la entropía de <span class="math inline">\(X\)</span>, y su valor depende de la distribución
+de las categorías, tal y como se ha explicado anteriormente.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>  <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>),</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>  <span class="at">salario =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">1500</span>, <span class="dv">2000</span>, <span class="dv">2500</span>, <span class="dv">3000</span>),</span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>  <span class="at">sexo =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;H&quot;</span>, <span class="st">&quot;H&quot;</span>, <span class="st">&quot;H&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;H&quot;</span>)),</span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a>  <span class="at">ciudad =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;Bilbao&quot;</span>, <span class="st">&quot;Donosti&quot;</span>, <span class="st">&quot;Bilbao&quot;</span>, <span class="st">&quot;Paris&quot;</span>, <span class="st">&quot;Iruñea&quot;</span>))</span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a>)</span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a><span class="fu">cor_dataset</span>(datos)</span></code></pre></div>
+<pre><code>##         edad salario      sexo    ciudad
+## edad       1       1        NA        NA
+## salario    1       1        NA        NA
+## sexo      NA      NA 0.5004024 0.5004024
+## ciudad    NA      NA 0.5004024 1.3321790</code></pre>
+<p>##Gráficas</p>
+<p>Por último se han creado dos funciones que se encargan de graficar
+por una parte, la curva ROC, y por la otra, las matrices de
+correlación/información mutua.</p>
+<p>Para representar gráficamente la curva ROC, se ha creado una función
+denominada <em>grafica_ROC()</em>. Esta función recibe como entradas un
+vector numérico, que puede corresponder, por ejemplo, a una columna de
+un conjunto de datos, y un vector de etiquetas binarias (TRUE/FALSE) que
+indica la clase real de cada observación. A partir de estos datos, la
+función calcula los distintos puntos de la curva ROC para diferentes
+valores de corte y los representa gráficamente.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>  <span class="at">valor =</span> <span class="fu">c</span>(<span class="fl">1.2</span>, <span class="fl">1.5</span>, <span class="fl">1.8</span>, <span class="fl">2.0</span>, <span class="fl">2.2</span>, <span class="fl">2.5</span>, <span class="fl">3.5</span>, <span class="fl">3.8</span>, <span class="fl">4.0</span>, <span class="fl">4.3</span>, <span class="fl">4.5</span>, <span class="fl">5.0</span>),</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>  <span class="at">clase =</span> <span class="fu">c</span>(</span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a>    <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>,</span>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a>    <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span></span>
+<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a>  )</span>
+<span id="cb32-7"><a href="#cb32-7" tabindex="-1"></a>)</span>
+<span id="cb32-8"><a href="#cb32-8" tabindex="-1"></a><span class="fu">grafica_ROC</span>(datos<span class="sc">$</span>valor,datos<span class="sc">$</span>clase)</span></code></pre></div>
+<p><img role="img" aria-label src="data:image/png;base64,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" alt width="100%" /></p>
+<p>Para graficar la matriz de correlaciones, se ha creado la función
+<em>plot_correlaciones()</em> que recibe como entrada un dataset. A
+partir de este, calcula las medidas de asociación entre los pares de
+variables y las representa gráficamente, facilitando su interpretación y
+permitiendo identificar de forma visual las relaciones existentes entre
+las variables. Para implementar esta función se necesita tener instalado
+el paquete ggplot2.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>  <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">42</span>, <span class="dv">67</span>, <span class="dv">40</span>,<span class="dv">23</span>),</span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>  <span class="at">salario =</span> <span class="fu">c</span>(<span class="dv">1500</span>, <span class="dv">2500</span>, <span class="dv">1500</span>, <span class="dv">2500</span>, <span class="dv">3000</span>,<span class="dv">2000</span>),</span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>  <span class="at">sexo =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;H&quot;</span>, <span class="st">&quot;H&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;H&quot;</span>,<span class="st">&quot;M&quot;</span>)),</span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>  <span class="at">ciudad =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;Bilbao&quot;</span>, <span class="st">&quot;Donosti&quot;</span>, <span class="st">&quot;Bilbao&quot;</span>, <span class="st">&quot;Paris&quot;</span>, <span class="st">&quot;Iruñea&quot;</span>,<span class="st">&quot;Elgoibar&quot;</span>))</span>
+<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a>)</span>
+<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a><span class="fu">plot_correlaciones</span>(datos)</span></code></pre></div>
+<p><img role="img" aria-label src="data:image/png;base64,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" alt width="100%" /></p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

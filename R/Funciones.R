@@ -231,7 +231,7 @@ entropy <- function (x){
 varianza <- function(x){
   #Aplicamos la formula para la varianza
   n <- length(x)
-  media <- mean(x)
+  media <- sum(x)/length(x)
   suma <- 0
   for (i in 1:n){
     suma <- suma + (x[i] - media)^2
@@ -399,7 +399,7 @@ normalizar.dataset <- function(datos){
 estandarizar <- function(x){
   varianza.x <- varianza(x)
   media <- sum(x)/length(x)
-  x_estand <-(x-media)/varianza.x #Aplicamos la formula para estandarizar
+  x_estand <-(x-media)/sqrt(varianza.x) #Aplicamos la formula para estandarizar
   return(x_estand)
 }
 
@@ -462,8 +462,8 @@ cor_par <- function(x, y) { #Teniendo dos variables nos calcula la correlacion o
     }
     
     #Medias
-    media_x <- mean(x)
-    media_y <- mean(y)
+    media_x <- sum(x)/length(x)
+    media_y <- sum(y)/length(y)
     
     #Calculamos la correlacion de Pearson
     numerador <- sum((x - media_x) * (y - media_y))
@@ -553,8 +553,8 @@ grafica_ROC <- function(x, clase) {
 #' 
 #' @param datos Data frame cuyas variables se quieren comparar.
 #' @return Un grafico de tipo mapa de calor. 
-#' @export
 #' @importFrom ggplot2 ggplot aes geom_tile geom_text scale_fill_gradient2 labs theme_minimal theme element_text element_blank 
+#' @export
 plot_correlaciones <- function(datos) {
   #Sacamos la matriz de correlaciones utilizando la funcion cor_dataset
   matriz_cor <- cor_dataset(datos)
@@ -566,7 +566,10 @@ plot_correlaciones <- function(datos) {
   #Heatmap, codigo ogido desde R Graph Gallery
   ggplot(datos_heatmap, aes(x = X, y = Y, fill = Z)) +
     geom_tile(color = "white") +
-    geom_text(aes(label = ifelse(is.na(Z), "", round(Z, 2)))) +
+    geom_text(
+      aes(label = ifelse(is.na(Z), "", round(Z, 2))),
+      size = 4
+    ) +
     scale_fill_gradient2(
       low = "blue",
       mid = "white",
@@ -574,12 +577,23 @@ plot_correlaciones <- function(datos) {
       midpoint = 0,
       na.value = "grey90"
     ) +
-    labs(x = "",y = "",fill = "Valor",title = "Matriz de correlaciones / informacion mutua"
+    labs(
+      x = "",
+      y = "",
+      fill = "Valor",
+      title = "Matriz de correlaciones"
     ) +
+    coord_fixed() +
     theme_minimal() +
     theme(
       axis.text.x = element_text(angle = 45, hjust = 1),
-      panel.grid = element_blank()
+      axis.text.y = element_text(size = 10),
+      panel.grid = element_blank(),
+      legend.position = "bottom",
+      plot.title = element_text(
+        size = 16,
+        face = "bold",
+        hjust = 0.5
+      )
     )
 }
-getwd()
