@@ -1,0 +1,28 @@
+Package: PaqueteAne
+Type: Package
+Title: Package para implementar diferentes funciones
+Version: 0.0.1
+Author: Ane Arregi [aut]
+Maintainer: Ane Arregi <aarregi015@ikasle.ehu.eus>
+Imports:
+	ggplot2
+Description: Package para implementar diferentes funciones que se han realizado para el trabajo de la asignatura Software Matemático y Estadístico. 	Entre ellos: 
+	1) Algoritmos de discretización para un solo atributo y para un dataset completo. 
+	2) Cálculo de métricas para los atributos de un dataset: varianza y AUC para las variables contínuas y entropía para las discretas.
+	3) Normalización y estandarización de variables, tanto de manera individual  como para el dataset completo. 
+	4) Filtrado de variables en base a las métricas implementadas. 
+	5) Cálculo de la correlación (información mutua en el caso de variables categóricas) por pares entre variables de un dataset. 
+	6) Plots para el AUC y para las matrices de correlación/información mutua.
+Collate:
+	Funciones.R
+License: GPL (>= 2)
+Encoding: UTF-8
+Suggests:
+    knitr,
+    rmarkdown
+BuildVignettes: TRUE
+VignetteBuilder:
+	knitr,
+	rmarkdown
+Config/roxygen2/version: 8.1.0
+
