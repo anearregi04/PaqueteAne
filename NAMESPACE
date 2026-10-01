@@ -23,6 +23,7 @@ export(plot_correlaciones)
 export(varianza)
 importFrom(ggplot2,
   aes,
+  coord_fixed,
   element_blank,
   element_text,
   geom_text,

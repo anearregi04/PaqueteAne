@@ -553,7 +553,7 @@ grafica_ROC <- function(x, clase) {
 #' 
 #' @param datos Data frame cuyas variables se quieren comparar.
 #' @return Un grafico de tipo mapa de calor. 
-#' @importFrom ggplot2 ggplot aes geom_tile geom_text scale_fill_gradient2 labs theme_minimal theme element_text element_blank 
+#' @importFrom ggplot2 ggplot aes geom_tile geom_text scale_fill_gradient2 labs theme_minimal theme element_text element_blank coord_fixed
 #' @export
 plot_correlaciones <- function(datos) {
   #Sacamos la matriz de correlaciones utilizando la funcion cor_dataset
