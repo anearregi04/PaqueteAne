@@ -39,7 +39,7 @@ A continuación, se analizarán dichas funciones, explicando su funcionamiento y
 
 **Discretize**
 
-La función *Discretize* permite realizar una discretización a partir de unos puntos de corte definidos previamente. En este caso, el usuario define puntos de corte que se utilizan para discretizar la lista de puntos. La función recibe un vector numérico y una lista de puntos de corte, y devuelve un vector categórico en el que cada valor queda asignado al intervalo correspondiente:
+La función *Discretize()* permite realizar una discretización a partir de unos puntos de corte definidos previamente. En este caso, el usuario define puntos de corte que se utilizan para discretizar la lista de puntos. La función recibe un vector numérico y una lista de puntos de corte, y devuelve un vector categórico en el que cada valor queda asignado al intervalo correspondiente:
 
 ```{r}
 x <- c(1,10,2,9,78,2,19,80,91)
@@ -48,7 +48,7 @@ discretize(x,puntos.corte)
 ```
 Tal y como se observa, la función crea $(n+1)$ grupos o niveles, siendo $(n)$ la longitud del vector puntos.corte. En este caso concreto, se generan cinco grupos. El primer grupo, (I1), comprende el intervalo $(-∞, 2])$, incluyendo también el valor 2. El segundo grupo comprende los valores mayores que 2 y menores o iguales que 60, el tercero los valores mayores que 60 y menores o iguales que 80, y el cuarto los valores mayores que 80 y menores o iguales que 90. Finalmente, se crea un último grupo que comprende los valores superiores a 90. Así, cada valor de **x** queda asignado a una categoría en función del intervalo en el que se encuentra.
 
-También se puede emplear esta función en datasets completos. Para ello, hay que llamar a la función *discretize.dataset* y las variables siguen siendo los datos y los puntos de corte. 
+También se puede emplear esta función en datasets completos. Para ello, hay que llamar a la función *discretize.dataset()* y las variables siguen siendo los datos y los puntos de corte. 
 ```{r}
 datos <- data.frame(
   v1 = c(1,10,2,9,78,2,19,80,91),
@@ -79,7 +79,7 @@ discretizeEW(x2,num.int)
 ```
 Como resultado, la función devuelve un vector de valores categóricos que indica a qué intervalo pertenece cada valor, así como los puntos de corte obtenidos. Estos puntos de corte pueden utilizarse posteriormente para discretizar nuevos valores utilizando los mismos intervalos. Además, para mejorar la legibilidad del resultado, se indican los límites correspondientes a cada intervalo.
 
-Si se quiere aplicar esta función a un dataset, podemos usar la función **discretizeEW.dataset()*. Esta función funciona exactamente igual que el anterior, recorriendo las columnas una a una. 
+Si se quiere aplicar esta función a un dataset, podemos usar la función *discretizeEW.dataset()*. Esta función funciona exactamente igual que el anterior, recorriendo las columnas una a una. 
 
 ```{r}
 datos <- data.frame(
@@ -177,13 +177,13 @@ La normalización y la estandarización son técnicas de transformación de dato
 
 La normalización transforma los valores de una variable para situarlos, habitualmente, en un intervalo entre 0 y 1. Para ello, se utiliza el valor mínimo y máximo de la variable. De esta forma, el valor mínimo pasa a ser 0 y el máximo pasa a ser 1, manteniendo las proporciones relativas entre los demás valores.
 
-Se ha creado una función (*normalizar*) donde pasándole una variable numérica, devuelve el vector normalizado:
+Se ha creado una función (*normalizar()*) donde pasándole una variable numérica, devuelve el vector normalizado:
 
 ```{r}
 v <- c(1,2,3,4,5,6)
 normalizar(v)
 ```
-Por otro lado, la estandarización transforma una variable de manera que tenga una media igual a 0 y una desviación estándar igual a 1. Para ello, a cada valor se le resta la media de la variable y el resultado se divide entre su desviación estándar. A diferencia de la normalización, los valores estandarizados no están limitados a un intervalo concreto. Para estandarizar un vector numérico se ha creado la función *estandarizar*, donde se observa que después de estandarizar, la media es 0 y la desviación estandar 1:
+Por otro lado, la estandarización transforma una variable de manera que tenga una media igual a 0 y una desviación estándar igual a 1. Para ello, a cada valor se le resta la media de la variable y el resultado se divide entre su desviación estándar. A diferencia de la normalización, los valores estandarizados no están limitados a un intervalo concreto. Para estandarizar un vector numérico se ha creado la función *estandarizar()*, donde se observa que después de estandarizar, la media es 0 y la desviación estandar 1:
 
 ```{r}
 estandarizado <- estandarizar(v)
@@ -193,7 +193,7 @@ print(estandarizado)
 ```{r}
 print(c(paste("Media: ",mean(estandarizado),paste("/  Desviación estándar: ",round(sd(estandarizado),2)))))
 ```
-En caso de trabajar con datasets, se han creado dos funciones que normalizan/estandarizan las variables numéricas de dicho dataset: *normalizar.dataset* y *estandarizar.dataset*.
+En caso de trabajar con datasets, se han creado dos funciones que normalizan/estandarizan las variables numéricas de dicho dataset: *normalizar.dataset()* y *estandarizar.dataset()*.
 
 ```{r}
 df4 <- data.frame(
@@ -209,7 +209,7 @@ normalizar.dataset(df4)
 estandarizar.dataset(df4)
 ```
 
-##Filtrado de variables
+## Filtrado de variables
 
 En base a las métricas utilizadas, se ha desarrollado una función donde, dada una dataset, se obtiene uno nuevo donde todas las variables cumplan con los requisitos indicados.  
 
@@ -223,7 +223,7 @@ Como ejemplo, se utiliza el dataset obtenido en *calcular_metricas()* y se ponen
 ```{r}
 filtrado_variables(resultado, 70,0.34,0.5)
 ```
-##Cálculo de la correlación
+## Cálculo de la correlación
 
 La correlación permite cuantificar el grado de asociación entre pares de variables. Resulta útil para identificar la existencia de relaciones o dependencias entre las variables de un conjunto de datos, ya que el estudio de estas asociaciones permite detectar patrones entre variables y obtener una visión global de la estructura de los datos. Además, puede ser de utilidad para identificar variables que aportan información similar o, por el contrario, variables cuya información es independiente.
 
@@ -256,7 +256,7 @@ datos <- data.frame(
 cor_dataset(datos)
 ```
 
-##Gráficas
+## Gráficas
 
 Por último se han creado dos funciones que se encargan de graficar por una parte, la curva ROC, y por la otra, las matrices de correlación/información mutua. 
 

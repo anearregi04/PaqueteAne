@@ -387,8 +387,8 @@ casos, la información de la variable objetivo.</p>
 funcionamiento y mostrando sus principales diferencias mediante
 ejemplos.</p>
 <p><strong>Discretize</strong></p>
-<p>La función <em>Discretize</em> permite realizar una discretización a
-partir de unos puntos de corte definidos previamente. En este caso, el
+<p>La función <em>Discretize()</em> permite realizar una discretización
+a partir de unos puntos de corte definidos previamente. En este caso, el
 usuario define puntos de corte que se utilizan para discretizar la lista
 de puntos. La función recibe un vector numérico y una lista de puntos de
 corte, y devuelve un vector categórico en el que cada valor queda
@@ -405,11 +405,11 @@ incluyendo también el valor 2. El segundo grupo comprende los valores
 mayores que 2 y menores o iguales que 60, el tercero los valores mayores
 que 60 y menores o iguales que 80, y el cuarto los valores mayores que
 80 y menores o iguales que 90. Finalmente, se crea un último grupo que
-comprende los valores superiores a 90. As, cada valor de
+comprende los valores superiores a 90. Así, cada valor de
 <strong>x</strong> queda asignado a una categoría en función del
 intervalo en el que se encuentra.</p>
 <p>También se puede emplear esta función en datasets completos. Para
-ello, hay que llamar a la función <em>discretize.dataset</em> y las
+ello, hay que llamar a la función <em>discretize.dataset()</em> y las
 variables siguen siendo los datos y los puntos de corte.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="at">v1 =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">2</span>,<span class="dv">9</span>,<span class="dv">78</span>,<span class="dv">2</span>,<span class="dv">19</span>,<span class="dv">80</span>,<span class="dv">91</span>),</span>
@@ -472,8 +472,9 @@ para discretizar nuevos valores utilizando los mismos intervalos.
 Además, para mejorar la legibilidad del resultado, se indican los
 límites correspondientes a cada intervalo.</p>
 <p>Si se quiere aplicar esta función a un dataset, podemos usar la
-función **discretizeEW.dataset()*. Esta función funciona exactamente
-igual que el anterior, recorriendo las columnas una a una.</p>
+función <em>discretizeEW.dataset()</em>. Esta función funciona
+exactamente igual que el anterior, recorriendo las columnas una a
+una.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="at">v1 =</span> <span class="fu">c</span>(<span class="fl">11.5</span>,<span class="fl">10.2</span>,<span class="fl">1.2</span>,<span class="fl">0.5</span>,<span class="fl">5.5</span>,<span class="fl">20.5</span>,<span class="fl">8.4</span>),</span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="at">v2 =</span> <span class="fu">c</span>(<span class="dv">1000</span>,<span class="dv">1500</span>,<span class="dv">2000</span>,<span class="dv">2500</span>,<span class="dv">3000</span>,<span class="dv">2800</span>,<span class="dv">4000</span>),</span>
@@ -633,7 +634,7 @@ situarlos, habitualmente, en un intervalo entre 0 y 1. Para ello, se
 utiliza el valor mínimo y máximo de la variable. De esta forma, el valor
 mínimo pasa a ser 0 y el máximo pasa a ser 1, manteniendo las
 proporciones relativas entre los demás valores.</p>
-<p>Se ha creado una función (<em>normalizar</em>) donde pasándole una
+<p>Se ha creado una función (<em>normalizar()</em>) donde pasándole una
 variable numérica, devuelve el vector normalizado:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">normalizar</span>(v)</span></code></pre></div>
@@ -644,8 +645,8 @@ ello, a cada valor se le resta la media de la variable y el resultado se
 divide entre su desviación estándar. A diferencia de la normalización,
 los valores estandarizados no están limitados a un intervalo concreto.
 Para estandarizar un vector numérico se ha creado la función
-<em>estandarizar</em>, donde se observa que después de estandarizar, la
-media es 0 y la desviación estandar 1:</p>
+<em>estandarizar()</em>, donde se observa que después de estandarizar,
+la media es 0 y la desviación estandar 1:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>estandarizado <span class="ot">&lt;-</span> <span class="fu">estandarizar</span>(v)</span>
 <span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="fu">print</span>(estandarizado)</span></code></pre></div>
 <pre><code>## [1] -1.3363062 -0.8017837 -0.2672612  0.2672612  0.8017837  1.3363062</code></pre>
@@ -653,7 +654,7 @@ media es 0 y la desviación estandar 1:</p>
 <pre><code>## [1] &quot;Media:  0 /  Desviación estándar:  1&quot;</code></pre>
 <p>En caso de trabajar con datasets, se han creado dos funciones que
 normalizan/estandarizan las variables numéricas de dicho dataset:
-<em>normalizar.dataset</em> y <em>estandarizar.dataset</em>.</p>
+<em>normalizar.dataset()</em> y <em>estandarizar.dataset()</em>.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>df4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  <span class="at">C1 =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">7</span>,<span class="dv">1</span>,<span class="dv">29</span>,<span class="dv">10</span>),</span>
 <span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>  <span class="at">C2 =</span> <span class="fu">c</span>(<span class="dv">12</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">2</span>),</span>
@@ -679,7 +680,9 @@ normalizan/estandarizan las variables numéricas de dicho dataset:
 ## 6 -0.65140883  0.84002688 c,
 ## 7  2.32646012  1.06403405  b
 ## 8  0.30576333 -0.72802330  c</code></pre>
-<p>##Filtrado de variables</p>
+</div>
+<div id="filtrado-de-variables" class="section level2">
+<h2>Filtrado de variables</h2>
 <p>En base a las métricas utilizadas, se ha desarrollado una función
 donde, dada una dataset, se obtiene uno nuevo donde todas las variables
 cumplan con los requisitos indicados.</p>
@@ -695,7 +698,9 @@ umbral_entropia)</em></p>
 <em>calcular_metricas()</em> y se ponen los siguientes umbrales:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">filtrado_variables</span>(resultado, <span class="dv">70</span>,<span class="fl">0.34</span>,<span class="fl">0.5</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;edad&quot;</code></pre>
-<p>##Cálculo de la correlación</p>
+</div>
+<div id="cálculo-de-la-correlación" class="section level2">
+<h2>Cálculo de la correlación</h2>
 <p>La correlación permite cuantificar el grado de asociación entre pares
 de variables. Resulta útil para identificar la existencia de relaciones
 o dependencias entre las variables de un conjunto de datos, ya que el
@@ -746,7 +751,9 @@ de las categorías, tal y como se ha explicado anteriormente.</p>
 ## salario    1       1        NA        NA
 ## sexo      NA      NA 0.5004024 0.5004024
 ## ciudad    NA      NA 0.5004024 1.3321790</code></pre>
-<p>##Gráficas</p>
+</div>
+<div id="gráficas" class="section level2">
+<h2>Gráficas</h2>
 <p>Por último se han creado dos funciones que se encargan de graficar
 por una parte, la curva ROC, y por la otra, las matrices de
 correlación/información mutua.</p>
